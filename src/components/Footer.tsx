@@ -18,7 +18,7 @@ const Footer = () => {
               href="https://your-donation-link.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow mt-4"
+              className="inline-block bg-green-600 border border-white hover:bg-green-700 text-white font-medium px-4 py-2 rounded shadow mt-4"
             >
               Donate Now
             </a>

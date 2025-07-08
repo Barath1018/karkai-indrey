@@ -16,6 +16,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+function darkenColor(hex: string, amount: number) {
+  const num = parseInt(hex.replace("#", ""), 16);
+  let r = (num >> 16) - amount * 255;
+  let g = ((num >> 8) & 0x00ff) - amount * 255;
+  let b = (num & 0x0000ff) - amount * 255;
+
+  r = Math.max(0, Math.min(255, r));
+  g = Math.max(0, Math.min(255, g));
+  b = Math.max(0, Math.min(255, b));
+
+  return `rgb(${r}, ${g}, ${b})`;
+}
 
 const WorkshopsPage = () => {
   const workshops = [
@@ -40,7 +52,7 @@ const WorkshopsPage = () => {
       duration: "3 hours",
       participants: "15–25 students",
       ageGroup: "8–16 years",
-      color: "#1a6c3d",
+      color: "#24965b",
       bgGradient: "from-green-50 to-emerald-100",
     },
     {
@@ -64,7 +76,7 @@ const WorkshopsPage = () => {
       duration: "4 hours",
       participants: "12–20 students",
       ageGroup: "10–18 years",
-      color: "#decf78",
+      color: "#c8b962",
       bgGradient: "from-yellow-50 to-amber-100",
     },
     {
@@ -97,7 +109,8 @@ const WorkshopsPage = () => {
     {
       icon: Users,
       title: "Expert-Led Sessions",
-      description: "Learn from experienced educators and industry professionals",
+      description:
+        "Learn from experienced educators and industry professionals",
     },
     {
       icon: Clock,
@@ -228,9 +241,20 @@ const WorkshopsPage = () => {
 
                 <CardFooter>
                   <Button
-                    className="w-full text-white"
+                    className="w-full text-white border-2 border-black"
                     style={{ backgroundColor: workshop.color }}
                     onClick={() => (window.location.href = "/contact")}
+                    onMouseEnter={(e) => {
+                      // Slightly darken the color on hover
+                      e.currentTarget.style.backgroundColor = darkenColor(
+                        workshop.color,
+                        0.1
+                      );
+                    }}
+                    onMouseLeave={(e) => {
+                      // Reset to original color
+                      e.currentTarget.style.backgroundColor = workshop.color;
+                    }}
                   >
                     Register Interest
                   </Button>
@@ -281,20 +305,19 @@ const WorkshopsPage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-white text-green-800 hover:bg-gray-100 px-8 py-3"
+              className="bg-white border-2 border-black text-green-800 hover:bg-gray-100 px-8 py-3"
               onClick={() => (window.location.href = "/contact")}
             >
               Register Now
             </Button>
             <Button
-  variant="outline"
-  size="lg"
-  className="bg-[#F59E0B] border-white text-white hover:bg-white hover:text-green-800 px-8 py-3"
-  onClick={() => (window.location.href = "/contact")}
->
-  Become a Volunteer
-</Button>
-
+              variant="outline"
+              size="lg"
+              className="bg-[#F59E0B] border-2 border-black text-black hover:bg-green-800 hover:text-white px-8 py-3"
+              onClick={() => (window.location.href = "/contact")}
+            >
+              Become a Volunteer
+            </Button>
           </div>
         </div>
       </section>

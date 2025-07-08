@@ -125,7 +125,8 @@ const GalleryPage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/apply"
-              className="px-6 py-3 bg-white text-green-700 font-semibold rounded-lg hover:bg-gray-200 transition"
+              className="px-6 py-3 bg-[#F59E0B] text-black font-semibold rounded-lg border-2 border-white hover:bg-green-700 hover:text-white transition
+"
             >
               Become a Volunteer
             </a>

@@ -217,7 +217,7 @@ const HomePage = () => {
             every possibility.
           </p>
           <Link to="/contact">
-            <Button className="bg-green-700 hover:bg-green-800 text-white border border-white px-8 py-3 text-lg font-semibold">
+            <Button className="bg-[#166534] border-2 border-white text-white hover:bg-amber-500 hover:text-black px-8 py-3">
               Become a Volunteer Today
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
