@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -48,8 +48,19 @@ const ScrollToTop = () => {
 };
 
 // Animated route wrapper
-const AnimatedRoutes = () => {
+const AnimatedRoutes = ({ setBgColor }: { setBgColor: (color: string) => void }) => {
   const location = useLocation();
+
+  useEffect(() => {
+    // Set brown during transition
+    setBgColor("#6B4226"); // brown
+    const timeout = setTimeout(() => {
+      // Reset to white or theme background after transition
+      setBgColor("white");
+    }, 400); // should match PageWrapper transition duration
+
+    return () => clearTimeout(timeout);
+  }, [location, setBgColor]);
 
   return (
     <AnimatePresence mode="wait">
@@ -70,25 +81,32 @@ const AnimatedRoutes = () => {
 // Main App Component
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <div className="min-h-screen flex flex-col transition-colors duration-300">
-            <Navigation />
-            <main className="flex-1">
-              <AnimatedRoutes />
-            </main>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const [bgColor, setBgColor] = useState("white");
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <div
+              className="min-h-screen flex flex-col transition-colors duration-300"
+              style={{ backgroundColor: bgColor }}
+            >
+              <Navigation />
+              <main className="flex-1">
+                <AnimatedRoutes setBgColor={setBgColor} />
+              </main>
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
