@@ -47,20 +47,34 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Curtain overlay transition component
+const CurtainOverlay = ({ isVisible }: { isVisible: boolean }) => (
+  <AnimatePresence>
+    {isVisible && (
+      <motion.div
+        className="fixed inset-0 z-[9999]"
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "-100%" }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+        style={{ backgroundColor: "#6B4226" }}
+      />
+    )}
+  </AnimatePresence>
+);
+
 // Animated route wrapper
-const AnimatedRoutes = ({ setBgColor }: { setBgColor: (color: string) => void }) => {
+const AnimatedRoutes = ({ setShowCurtain }: { setShowCurtain: (v: boolean) => void }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Set brown during transition
-    setBgColor("#6B4226"); // brown
+    setShowCurtain(true);
     const timeout = setTimeout(() => {
-      // Reset to white or theme background after transition
-      setBgColor("white");
-    }, 400); // should match PageWrapper transition duration
+      setShowCurtain(false);
+    }, 600); // matches curtain transition duration
 
     return () => clearTimeout(timeout);
-  }, [location, setBgColor]);
+  }, [location, setShowCurtain]);
 
   return (
     <AnimatePresence mode="wait">
@@ -82,7 +96,7 @@ const AnimatedRoutes = ({ setBgColor }: { setBgColor: (color: string) => void })
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [bgColor, setBgColor] = useState("white");
+  const [showCurtain, setShowCurtain] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -92,13 +106,11 @@ const App = () => {
           <Sonner />
           <BrowserRouter>
             <ScrollToTop />
-            <div
-              className="min-h-screen flex flex-col transition-colors duration-300"
-              style={{ backgroundColor: bgColor }}
-            >
+            <CurtainOverlay isVisible={showCurtain} />
+            <div className="min-h-screen flex flex-col transition-colors duration-300 bg-white">
               <Navigation />
               <main className="flex-1">
-                <AnimatedRoutes setBgColor={setBgColor} />
+                <AnimatedRoutes setShowCurtain={setShowCurtain} />
               </main>
               <Footer />
             </div>
