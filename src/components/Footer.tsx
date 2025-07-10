@@ -80,7 +80,7 @@ const Footer = () => {
               <p className="text-sm text-gray-400">Developer</p>
             </div>
             <div>
-              <p className="text-green-500 font-semibold">Barath</p>
+              <p className="text-green-500 font-semibold">Barath S</p>
               <p className="text-sm text-gray-400">Co-Developer</p>
             </div>
             {/* Add more team members here */}
@@ -88,7 +88,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Soil Steps. Built with 💚 to educate and empower.</p>
+          <p>&copy; 2025 Soil Steps. Built with 💚 to educate and empower.</p>
         </div>
       </div>
     </footer>
