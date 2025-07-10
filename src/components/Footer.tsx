@@ -80,7 +80,7 @@ const Footer = () => {
               <p className="text-sm text-gray-400">Developer</p>
             </div>
             <div>
-              <p className="text-green-500 font-semibold">Thejas</p>
+              <p className="text-green-500 font-semibold">Barath</p>
               <p className="text-sm text-gray-400">Co-Developer</p>
             </div>
             {/* Add more team members here */}
