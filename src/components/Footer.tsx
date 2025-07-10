@@ -32,7 +32,7 @@ const Footer = () => {
               <li><a href="/vision" className="text-gray-300 hover:text-green-500 transition-colors">Vision</a></li>
               <li><a href="/mission" className="text-gray-300 hover:text-green-500 transition-colors">Mission</a></li>
               <li><a href="/workshops" className="text-gray-300 hover:text-green-500 transition-colors">Workshops</a></li>
-              <li><a href="/apply" className="text-gray-300 hover:text-green-500 transition-colors">Apply (Private Schools)</a></li>
+              <li><a href="/contact" className="text-gray-300 hover:text-green-500 transition-colors">Apply (Private Schools)</a></li>
               <li><a href="/contact" className="text-gray-300 hover:text-green-500 transition-colors">Join Us</a></li>
             </ul>
           </div>
