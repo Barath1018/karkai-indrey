@@ -76,14 +76,15 @@ const Footer = () => {
           <h3 className="text-xl font-bold text-center mb-6">Meet the Team</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-center">
             <div>
-              <p className="text-green-500 font-semibold">Govarthan V</p>
+              <a href="https://www.linkedin.com/in/govarthan-v"><p className="text-green-500 font-semibold">Govarthan V</p></a>
               <p className="text-sm text-gray-400">Developer</p>
             </div>
             <div>
               <p className="text-green-500 font-semibold">Barath S</p>
               <p className="text-sm text-gray-400">Co-Developer</p>
             </div>
-            {/* Add more team members here */}
+            <p className="text-green-500 font-semibold">Thejas</p>
+              <p className="text-sm text-gray-400">Co-Developer</p>
           </div>
         </div>
 
