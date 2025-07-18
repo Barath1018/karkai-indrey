@@ -73,20 +73,57 @@ const Footer = () => {
 
         {/* Team Members */}
         <div className="mt-12">
-          <h3 className="text-xl font-bold text-center mb-6">Meet the Team</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-center">
-            <div>
-              <a href="https://www.linkedin.com/in/govarthan-v"><p className="text-green-500 font-semibold">Govarthan V</p></a>
-              <p className="text-sm text-gray-400">Developer</p>
-            </div>
-            <div>
-              <p className="text-green-500 font-semibold">Barath S</p>
-              <p className="text-sm text-gray-400">Co-Developer</p>
-            </div>
-            <p className="text-green-500 font-semibold">Thejas</p>
-              <p className="text-sm text-gray-400">Co-Developer</p>
-          </div>
-        </div>
+  <h3 className="text-xl font-bold text-center mb-6">Meet the Team</h3>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-center">
+    
+    {/* Govarthan */}
+    <div>
+      <a
+        href="https://www.linkedin.com/in/govarthan-v"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="https://www.linkedin.com/in/govarthan-v"
+      >
+        <p className="text-green-500 font-semibold hover:underline cursor-pointer">
+          Govarthan V
+        </p>
+      </a>
+      <p className="text-sm text-gray-400">Developer</p>
+    </div>
+
+    {/* Barath */}
+    <div>
+      <a
+        href="https://www.linkedin.com/in/barath-senthil-933b03294"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="https://www.linkedin.com/in/barath-senthil-933b03294"
+      >
+        <p className="text-green-500 font-semibold hover:underline cursor-pointer">
+          Barath S
+        </p>
+      </a>
+      <p className="text-sm text-gray-400">Co-Developer</p>
+    </div>
+
+    {/* Thejas */}
+    <div>
+      <a
+        href="https://www.linkedin.com/in/thejas-r-6a0543295"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="https://www.linkedin.com/in/thejas-r-6a0543295"
+      >
+        <p className="text-green-500 font-semibold hover:underline cursor-pointer">
+          Thejas
+        </p>
+      </a>
+      <p className="text-sm text-gray-400">Co-Developer</p>
+    </div>
+    
+  </div>
+</div>
+
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
           <p>&copy; 2025 Soil Steps. Built with 💚 to educate and empower.</p>
