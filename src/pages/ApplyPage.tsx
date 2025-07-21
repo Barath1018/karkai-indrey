@@ -15,6 +15,8 @@ const ApplyPage = () => {
     role: "",
     motivation: "",
   });
+
+  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -35,32 +37,38 @@ const ApplyPage = () => {
       return;
     }
 
-    emailjs.send(
-      "service_508zln9", // Your service ID
-      "template_ox03d2d", // Your template ID
-      {
-        from_name: name,
-        email,
-        phone,
-        role,
-        motivation,
-      },
-      "K0JGZ18xPPyhnbwbC" // Replace with your actual public key from EmailJS
-    )
-    .then(() => {
-      toast({
-        title: "Application Submitted 🚀",
-        description: "Thank you for applying! We’ll get in touch soon.",
+    setLoading(true);
+
+    emailjs
+      .send(
+        "service_508zln9", // Your service ID
+        "template_ox03d2d", // Your template ID
+        {
+          from_name: name,
+          email,
+          phone,
+          role,
+          motivation,
+        },
+        "K0JGZ18xPPyhnbwbC" // Your public key
+      )
+      .then(() => {
+        toast({
+          title: "Application Submitted 🚀",
+          description: "Thank you for applying! We’ll get in touch soon.",
+        });
+        setFormData({ name: "", email: "", phone: "", role: "", motivation: "" });
+      })
+      .catch(() => {
+        toast({
+          title: "Submission Failed 😢",
+          description: "There was a problem sending your application. Try again later.",
+          variant: "destructive",
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
-      setFormData({ name: "", email: "", phone: "", role: "", motivation: "" });
-    })
-    .catch(() => {
-      toast({
-        title: "Submission Failed 😢",
-        description: "There was a problem sending your application. Try again later.",
-        variant: "destructive",
-      });
-    });
   };
 
   return (
@@ -94,12 +102,64 @@ const ApplyPage = () => {
 
           <CardContent className="p-6 space-y-6">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" required />
-              <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email Address" required />
-              <Input id="phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" required />
-              <Input id="role" name="role" value={formData.role} onChange={handleChange} placeholder="Role you're applying for (e.g., Volunteer, Intern)" required />
-              <Textarea id="motivation" name="motivation" value={formData.motivation} onChange={handleChange} placeholder="Tell us why you're interested" required />
-              <Button type="submit" className="w-full bg-soil-green text-white hover:bg-soil-green/80">Submit Application</Button>
+              <Input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Full Name"
+                required
+                pattern="^[a-zA-Z\s]{2,}$"
+                title="Only letters and spaces allowed (min 2 characters)"
+              />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                inputMode="email"
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                title="Enter a valid email address (e.g., name@example.com)"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email Address"
+                required
+              />
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputMode="tel"
+                title="Enter a valid 10-digit Indian phone number"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Phone Number"
+                required
+              />
+              <Input
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                placeholder="Role you're applying for (e.g., Volunteer, Intern)"
+                required
+                pattern="^[a-zA-Z\s.,-]{2,}$"
+                title="Only letters, spaces, commas, periods, and hyphens are allowed"
+              />
+              <Textarea
+                id="motivation"
+                name="motivation"
+                value={formData.motivation}
+                onChange={handleChange}
+                placeholder="Tell us why you're interested"
+                required
+              />
+              <Button
+                type="submit"
+                className="w-full bg-soil-green text-white hover:bg-soil-green/80"
+                disabled={loading}
+              >
+                {loading ? "Submitting..." : "Submit Application"}
+              </Button>
             </form>
           </CardContent>
         </Card>

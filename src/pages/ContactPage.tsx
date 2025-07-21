@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,16 +30,18 @@ const ContactPage = () => {
       return;
     }
 
+    setLoading(true);
+
     emailjs
       .send(
-        "service_qllxxzb", // Service ID
-        "template_b41tzpq", // Template ID
+        "service_qllxxzb", // Your EmailJS service ID
+        "template_3j17kpd", // Your EmailJS template ID
         {
           from_name: name,
           email,
           message,
         },
-        "K0JGZ18xPPyhnbwbC" // Public Key
+        "1eArfUMqqvtvxppnj" // Your EmailJS public key
       )
       .then(() => {
         toast({
@@ -53,6 +56,9 @@ const ContactPage = () => {
           description: "Please try again later.",
           variant: "destructive",
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -96,11 +102,16 @@ const ContactPage = () => {
                 onChange={handleChange}
                 placeholder="Your Name"
                 required
+                pattern="^[a-zA-Z\s]{2,}$"
+                title="Only letters and spaces allowed (min 2 characters)"
               />
               <Input
                 id="email"
                 name="email"
                 type="email"
+                inputMode="email"
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                title="Please enter a valid email address (e.g., yourname@example.com)"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Your Email"
@@ -117,8 +128,9 @@ const ContactPage = () => {
               <Button
                 type="submit"
                 className="w-full bg-soil-green text-white hover:bg-soil-green/80"
+                disabled={loading}
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </CardContent>
