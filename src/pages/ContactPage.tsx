@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "emailjs-com";
 import { Sparkles, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,32 +29,42 @@ const ContactPage = () => {
       return;
     }
 
-    toast({
-      title: "Thanks for reaching out! 🙌",
-      description: "We'll get back to you shortly.",
-    });
-
-    setFormData({ name: "", email: "", message: "" });
+    emailjs
+      .send(
+        "service_qllxxzb", // Service ID
+        "template_b41tzpq", // Template ID
+        {
+          from_name: name,
+          email,
+          message,
+        },
+        "K0JGZ18xPPyhnbwbC" // Public Key
+      )
+      .then(() => {
+        toast({
+          title: "Thanks for reaching out! 🙌",
+          description: "We'll get back to you shortly.",
+        });
+        setFormData({ name: "", email: "", message: "" });
+      })
+      .catch(() => {
+        toast({
+          title: "Something went wrong 😥",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+      });
   };
 
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-900 to-green-800 py-20 px-4 relative overflow-hidden"
-      style={{
-        animation: "slideUp 0.7s ease-out",
-      }}
+      style={{ animation: "slideUp 0.7s ease-out" }}
     >
-      {/* Custom CSS for slideUp animation */}
       <style>{`
         @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(50px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
 
@@ -71,10 +82,10 @@ const ContactPage = () => {
         <Card className="bg-white/90 backdrop-blur-md border-0 shadow-lg">
           <CardHeader className="bg-gradient-to-r from-green-100 to-emerald-200 rounded-t-lg">
             <CardTitle className="font-poppins text-xl text-green-800 flex items-center">
-                <Send className="h-5 w-5 text-green-700 mr-3" />
-                Reach us Out
+              <Send className="h-5 w-5 text-green-700 mr-3" />
+              Reach us Out
             </CardTitle>
-        </CardHeader>
+          </CardHeader>
 
           <CardContent className="p-6 space-y-6">
             <form onSubmit={handleSubmit} className="space-y-6">
