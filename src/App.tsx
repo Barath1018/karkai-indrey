@@ -57,7 +57,7 @@ const CurtainOverlay = ({ isVisible }: { isVisible: boolean }) => (
         animate={{ y: 0 }}
         exit={{ y: "-100%" }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
-        style={{ backgroundColor: "#6B4226" }}
+        style={{ backgroundColor: "#90EE90" }}
       />
     )}
   </AnimatePresence>

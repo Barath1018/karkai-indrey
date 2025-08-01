@@ -6,28 +6,16 @@ import {
   Clock,
   MapPin,
   Star,
+  CheckCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-function darkenColor(hex: string, amount: number) {
-  const num = parseInt(hex.replace("#", ""), 16);
-  let r = (num >> 16) - amount * 255;
-  let g = ((num >> 8) & 0x00ff) - amount * 255;
-  let b = (num & 0x0000ff) - amount * 255;
-
-  r = Math.max(0, Math.min(255, r));
-  g = Math.max(0, Math.min(255, g));
-  b = Math.max(0, Math.min(255, b));
-
-  return `rgb(${r}, ${g}, ${b})`;
-}
 
 const WorkshopsPage = () => {
   const workshops = [
@@ -52,8 +40,9 @@ const WorkshopsPage = () => {
       duration: "3 hours",
       participants: "15–25 students",
       ageGroup: "8–16 years",
-      color: "#24965b",
-      bgGradient: "from-green-50 to-emerald-100",
+      color: "#10B981",
+      bgGradient: "from-emerald-50 via-green-50 to-emerald-100",
+      borderColor: "border-emerald-200",
     },
     {
       id: 2,
@@ -76,8 +65,9 @@ const WorkshopsPage = () => {
       duration: "4 hours",
       participants: "12–20 students",
       ageGroup: "10–18 years",
-      color: "#c8b962",
-      bgGradient: "from-yellow-50 to-amber-100",
+      color: "#F59E0B",
+      bgGradient: "from-amber-50 via-yellow-50 to-amber-100",
+      borderColor: "border-amber-200",
     },
     {
       id: 3,
@@ -100,8 +90,9 @@ const WorkshopsPage = () => {
       duration: "5 hours",
       participants: "10–18 students",
       ageGroup: "12–18 years",
-      color: "#2563eb", // blue
-      bgGradient: "from-blue-50 to-indigo-100",
+      color: "#3B82F6",
+      bgGradient: "from-blue-50 via-indigo-50 to-blue-100",
+      borderColor: "border-blue-200",
     },
   ];
 
@@ -111,37 +102,42 @@ const WorkshopsPage = () => {
       title: "Expert-Led Sessions",
       description:
         "Learn from experienced educators and industry professionals",
+      color: "#10B981",
     },
     {
       icon: Clock,
       title: "Hands-On Learning",
       description: "Interactive experiments and practical demonstrations",
+      color: "#F59E0B",
     },
     {
       icon: MapPin,
       title: "Open to All",
       description: "Free workshops accessible to students from all backgrounds",
+      color: "#3B82F6",
     },
     {
       icon: Star,
       title: "Certificate of Participation",
       description: "Recognition for active participation and learning",
+      color: "#8B5CF6",
     },
   ];
 
   return (
-    <div className="min-h-screen transition-all duration-500 ease-in-out bg-gradient-to-b from-green-900 via-emerald-900 to-green-800">
+    <div className="min-h-screen transition-all duration-500 ease-in-out bg-gradient-to-br from-green-900 via-emerald-800 to-green-700">
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-6">
-            <Rocket className="h-8 w-8 text-white" />
+      <section className="py-20 lg:py-32 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/50 to-emerald-800/50"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-8 shadow-lg">
+            <Rocket className="h-10 w-10 text-white" />
           </div>
-          <h1 className="font-poppins font-bold text-4xl md:text-6xl mb-6">
-            Learning <span className="text-[#decf78]">Workshops</span>
+          <h1 className="font-poppins font-bold text-5xl md:text-7xl mb-8 leading-tight">
+            Learning <span className="text-emerald-300 drop-shadow-lg">Workshops</span>
           </h1>
-          <div className="w-24 h-1 bg-white mx-auto mb-8"></div>
-          <p className="text-xl max-w-3xl mx-auto text-white/80">
+          <div className="w-32 h-1.5 bg-gradient-to-r from-emerald-300 to-green-300 mx-auto mb-10 rounded-full"></div>
+          <p className="text-xl md:text-2xl max-w-4xl mx-auto text-white/90 leading-relaxed">
             Immersive, hands-on workshops designed to spark curiosity, build
             practical skills, and inspire the next generation of innovators
             through three exciting themes.
@@ -150,49 +146,50 @@ const WorkshopsPage = () => {
       </section>
 
       {/* Workshop Cards */}
-      <section className="py-20 bg-white rounded-t-[3rem]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <section className="py-24 bg-gradient-to-b from-white to-gray-50 rounded-t-[4rem] relative">
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-green-900 to-transparent"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {workshops.map((workshop) => (
               <Card
                 key={workshop.id}
-                className={`bg-gradient-to-br ${workshop.bgGradient} border-0 shadow-lg`}
+                className={`bg-gradient-to-br ${workshop.bgGradient} border-2 ${workshop.borderColor} shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group`}
               >
-                <CardHeader className="text-center pb-4">
+                <CardHeader className="text-center pb-6">
                   <div
-                    className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 mx-auto"
-                    style={{ backgroundColor: `${workshop.color}20` }}
+                    className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300"
+                    style={{ backgroundColor: `${workshop.color}15` }}
                   >
                     <workshop.icon
-                      className="h-8 w-8"
+                      className="h-10 w-10"
                       style={{ color: workshop.color }}
                     />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">
+                  <CardTitle className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
                     {workshop.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-700 text-base">
+                  <CardDescription className="text-gray-700 text-base leading-relaxed">
                     {workshop.description}
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-8">
                   {/* Highlights */}
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">
+                    <h4 className="font-semibold text-gray-900 mb-4 text-lg">
                       Key Highlights:
                     </h4>
-                    <ul className="space-y-2">
+                    <ul className="space-y-3">
                       {workshop.highlights.map((highlight, idx) => (
                         <li
                           key={idx}
-                          className="flex items-center text-sm text-gray-700"
+                          className="flex items-start text-sm text-gray-700"
                         >
-                          <div
-                            className="w-2 h-2 rounded-full mr-3 flex-shrink-0"
-                            style={{ backgroundColor: workshop.color }}
-                          ></div>
-                          {highlight}
+                          <CheckCircle 
+                            className="w-4 h-4 mr-3 mt-0.5 flex-shrink-0"
+                            style={{ color: workshop.color }}
+                          />
+                          <span className="leading-relaxed">{highlight}</span>
                         </li>
                       ))}
                     </ul>
@@ -200,65 +197,44 @@ const WorkshopsPage = () => {
 
                   {/* Activities */}
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">
+                    <h4 className="font-semibold text-gray-900 mb-4 text-lg">
                       Sample Activities:
                     </h4>
-                    <ul className="space-y-2">
+                    <ul className="space-y-3">
                       {workshop.activities.map((activity, idx) => (
                         <li
                           key={idx}
-                          className="flex items-center text-sm text-gray-700"
+                          className="flex items-start text-sm text-gray-700"
                         >
-                          <Star className="w-3 h-3 text-yellow-500 mr-3 flex-shrink-0" />
-                          {activity}
+                          <Star className="w-4 h-4 text-amber-500 mr-3 mt-0.5 flex-shrink-0" />
+                          <span className="leading-relaxed">{activity}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
                   {/* Details */}
-                  <div className="grid grid-cols-1 gap-3 pt-4 border-t border-gray-200">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Duration:</span>
-                      <span className="font-medium text-gray-900">
+                  <div className="grid grid-cols-1 gap-4 pt-6 border-t border-gray-200 bg-white/50 rounded-lg p-4">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-gray-600 font-medium">Duration:</span>
+                      <span className="font-semibold text-gray-900">
                         {workshop.duration}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Participants:</span>
-                      <span className="font-medium text-gray-900">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-gray-600 font-medium">Participants:</span>
+                      <span className="font-semibold text-gray-900">
                         {workshop.participants}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Age Group:</span>
-                      <span className="font-medium text-gray-900">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-gray-600 font-medium">Age Group:</span>
+                      <span className="font-semibold text-gray-900">
                         {workshop.ageGroup}
                       </span>
                     </div>
                   </div>
                 </CardContent>
-
-                <CardFooter>
-                  <Button
-                    className="w-full text-white border-2 border-black"
-                    style={{ backgroundColor: workshop.color }}
-                    onClick={() => (window.location.href = "/contact")}
-                    onMouseEnter={(e) => {
-                      // Slightly darken the color on hover
-                      e.currentTarget.style.backgroundColor = darkenColor(
-                        workshop.color,
-                        0.1
-                      );
-                    }}
-                    onMouseLeave={(e) => {
-                      // Reset to original color
-                      e.currentTarget.style.backgroundColor = workshop.color;
-                    }}
-                  >
-                    Register Interest
-                  </Button>
-                </CardFooter>
               </Card>
             ))}
           </div>
@@ -266,26 +242,32 @@ const WorkshopsPage = () => {
       </section>
 
       {/* Features */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Why Choose Our Workshops?
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-16 leading-relaxed">
             Every workshop is designed to be engaging, educational, and
             accessible to all students.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-4">
-                  <feature.icon className="h-6 w-6 text-green-700" />
+              <div key={index} className="text-center group">
+                <div 
+                  className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  style={{ backgroundColor: `${feature.color}15` }}
+                >
+                  <feature.icon 
+                    className="h-8 w-8"
+                    style={{ color: feature.color }}
+                  />
                 </div>
-                <h3 className="font-semibold text-lg text-gray-900 mb-2">
+                <h3 className="font-bold text-xl text-gray-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -293,19 +275,20 @@ const WorkshopsPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-br from-green-900 via-emerald-800 to-green-900 text-white text-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+      <section className="py-24 bg-gradient-to-br from-green-800 via-emerald-700 to-green-800 text-white text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/30 to-emerald-800/30"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8">
             Ready to Learn and Explore?
           </h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed">
             Join us for an unforgettable learning experience. Register your
             interest and be the first to know when we're coming to your city!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
-              className="bg-white border-2 border-black text-green-800 hover:bg-gray-100 px-8 py-3"
+              className="bg-white border-2 border-white text-green-800 hover:bg-gray-100 hover:border-gray-100 px-10 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               onClick={() => (window.location.href = "/contact")}
             >
               Register Now
@@ -313,7 +296,7 @@ const WorkshopsPage = () => {
             <Button
               variant="outline"
               size="lg"
-              className="bg-[#F59E0B] border-2 border-black text-black hover:bg-green-800 hover:text-white px-8 py-3"
+              className="bg-amber-500 border-2 border-amber-500 text-white hover:bg-amber-600 hover:border-amber-600 px-10 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               onClick={() => (window.location.href = "/contact")}
             >
               Become a Volunteer
